@@ -1,70 +1,121 @@
-[gd_scene load_steps=21 format=3 uid="uid://baeg5gkx4txr2"]
+[gd_scene load_steps=21 format=3 uid="uid://brs3n8hxeka5e"]
 
-[ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_v0wf6"]
-[ext_resource type="Texture2D" uid="uid://xsxtgcxrs0eg" path="res://assets/sprites/tilemap.png" id="3_txi5c"]
+[ext_resource type="Texture2D" uid="uid://xsxtgcxrs0eg" path="res://assets/sprites/tilemap.png" id="2_d2wvx"]
+
+[sub_resource type="GDScript" id="GDScript_j23vh"]
+script/source = "extends CharacterBody2D
+
+@onready var animated_sprite_2d = $AnimatedSprite2D
+
+const tile_size = 64
+var moving = false
+var input_dir
+var latest_direction
+
+func _physics_process(delta: float) -> void:
+	input_dir = Vector2.ZERO
+	if Input.is_action_pressed(\"walk_down\"):
+		input_dir = Vector2(0,1)
+		animated_sprite_2d.play(\"walk_front\")
+		move()
+	elif Input.is_action_pressed(\"walk_up\"):
+		input_dir = Vector2(0,-1)
+		animated_sprite_2d.play(\"walk_back\")
+		move()
+	elif Input.is_action_pressed(\"walk_right\"):
+		input_dir = Vector2(1,0)
+		animated_sprite_2d.play(\"walk_right\")
+		move()
+	elif Input.is_action_pressed(\"walk_left\"):
+		input_dir = Vector2(-1,0)
+		animated_sprite_2d.play(\"walk_left\")
+		move()
+	if input_dir != Vector2.ZERO:
+		latest_direction = input_dir
+	move_and_slide()
+
+func move():
+	if input_dir:
+		if moving == false:
+			moving = true
+			var tween  = create_tween()
+			tween.tween_property(self, \"position\", position + input_dir*tile_size, 0.35)
+			tween.tween_callback(move_false)
+
+func move_false():
+	moving = false
+	if latest_direction == Vector2(0,1):
+		animated_sprite_2d.play(\"idle_front\")
+	elif latest_direction == Vector2(0,-1):
+		animated_sprite_2d.play(\"idle_back\")
+	elif latest_direction == Vector2(1,0):
+		animated_sprite_2d.play(\"idle_right\")
+	elif latest_direction == Vector2(-1,0):
+		animated_sprite_2d.play(\"idle_left\")
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o60jn"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(425, 51, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hvur3"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(408, 51, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yym13"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(391, 51, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lf4nt"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(442, 51, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lfu62"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(425, 68, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bckhv"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(425, 85, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fd0qk"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(408, 68, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s8b3x"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(408, 85, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4gv3w"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(391, 68, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aliep"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(391, 51, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iq3t8"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(391, 85, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w2lgv"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(391, 51, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rso7f"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(442, 68, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fiw80"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(442, 51, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mx7dm"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(442, 85, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_krhw8"]
-atlas = ExtResource("3_txi5c")
+atlas = ExtResource("2_d2wvx")
 region = Rect2(442, 51, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7ig07"]
@@ -162,13 +213,13 @@ animations = [{
 radius = 21.0
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_v0wf6")
+script = SubResource("GDScript_j23vh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -33)
 scale = Vector2(4.0625, 4.03125)
 sprite_frames = SubResource("SpriteFrames_7ig07")
-animation = &"idle_back"
+animation = &"idle_front"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -21)
