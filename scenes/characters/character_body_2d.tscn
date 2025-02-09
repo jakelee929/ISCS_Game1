@@ -1,8 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://baeg5gkx4txr2"]
+[gd_scene load_steps=24 format=3 uid="uid://baeg5gkx4txr2"]
 
 [ext_resource type="Texture2D" uid="uid://cmhi2rw0u8l5h" path="res://assets/sprites/tilemap_packed.png" id="1_62rft"]
+[ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_v0wf6"]
 [ext_resource type="Script" path="res://scripts/state_machine/node_state_machine.gd" id="2_o7c65"]
 [ext_resource type="Script" path="res://scenes/characters/idle_state.gd" id="3_s5b2n"]
+[ext_resource type="Script" path="res://scenes/characters/walk_state.gd" id="4_gytmg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v5gqv"]
 atlas = ExtResource("1_62rft")
@@ -162,13 +164,14 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_01sdl"]
 radius = 16.0
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_v0wf6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(9.53674e-07, -23.75)
 scale = Vector2(2.875, 2.90625)
 sprite_frames = SubResource("SpriteFrames_7ig07")
-animation = &"walk_left"
+animation = &"idle_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -16)
@@ -180,5 +183,10 @@ initial_node_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animated_sprite_2d")]
 script = ExtResource("3_s5b2n")
+player = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animated_sprite_2d")]
+script = ExtResource("4_gytmg")
 player = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")

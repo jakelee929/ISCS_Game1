@@ -15,4 +15,4 @@ tile_set = ExtResource("1_h0d4w")
 position = Vector2(262, 102)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(262, 87)
+position = Vector2(262, 101)
