@@ -162,7 +162,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_01sdl"]
-radius = 16.0
+radius = 21.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_v0wf6")
@@ -174,7 +174,7 @@ sprite_frames = SubResource("SpriteFrames_7ig07")
 animation = &"idle_back"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -16)
+position = Vector2(0, -21)
 shape = SubResource("CircleShape2D_01sdl")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_node_state")]
