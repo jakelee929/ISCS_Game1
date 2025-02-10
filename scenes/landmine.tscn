@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhmckpyefeds3"]
+
+[ext_resource type="Texture2D" uid="uid://bwa1e8nohhwu7" path="res://assets/sprites/a-us-anti-personnel-mine-used-during-a-marine-field-exercise-3ee3a0-1024-resized.webp" id="1_wvgtu"]
+
+[node name="landmine" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0794872, 0.134783)
+texture = ExtResource("1_wvgtu")

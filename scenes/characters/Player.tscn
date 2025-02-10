@@ -17,18 +17,16 @@ var raycast_up: RayCast2D
 var raycast_right: RayCast2D
 var raycast_left: RayCast2D 
 
-
 # Ray casts are use to check if the area in front is a wall
 func _ready():
+	print(\"I'm ready\")
 	raycast_down = $RayCastDown
 	raycast_up = $RayCastUp
 	raycast_right = $RayCastRight
 	raycast_left = $RayCastLeft
 
-
 func _physics_process(delta: float) -> void:
 	input_dir = Vector2.ZERO
-	
 	
 	# if the raycast is colliding, the player gets to move
 	if Input.is_action_pressed(\"walk_down\"):
@@ -73,6 +71,10 @@ func move_false():
 		animated_sprite_2d.play(\"idle_right\")
 	elif latest_direction == Vector2(-1,0):
 		animated_sprite_2d.play(\"idle_left\")
+
+# i was gonna use this for ice movement but i do not understand it at all
+func _get_last_movement(body):
+	move()
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o60jn"]
